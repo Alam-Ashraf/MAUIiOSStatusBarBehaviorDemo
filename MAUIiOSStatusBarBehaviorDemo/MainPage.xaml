@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MAUIiOSStatusBarBehaviorDemo.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="MainContainer">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="30,30" Spacing="25">
+
+            <FlexLayout
+                x:Name="StackColorList"
+                AlignItems="Center"
+                BindableLayout.ItemsSource="{Binding Colors}"
+                Direction="Row"
+                FlexLayout.AlignSelf="Center"
+                HorizontalOptions="FillAndExpand"
+                JustifyContent="Center"
+                Wrap="Wrap">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Button
+                            BackgroundColor="{Binding Color}"
+                            BorderColor="Transparent"
+                            BorderWidth="2"
+                            Command="{Binding BindingContext.ColorItemClickedCommand, Source={x:Reference MainContainer}}"
+                            CommandParameter="{Binding .}"
+                            CornerRadius="0"
+                            HeightRequest="100"
+                            WidthRequest="100">
+                            <Button.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsSelected}"
+                                    TargetType="Button"
+                                    Value="True">
+                                    <Setter Property="BorderColor" Value="Red" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+
+            <Button
+                x:Name="CounterBtn"
+                Command="{Binding ChangeStatusBarColorCommand}"
+                HorizontalOptions="Center"
+                Text="Change StatusBar Color" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
